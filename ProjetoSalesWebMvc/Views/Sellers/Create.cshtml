@@ -1,0 +1,55 @@
+@model ProjetoSalesWebMvc.Models.ViewModels.SellerFormViewModel
+
+
+Seller.
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Seller</h4>
+<hr>
+<!--class="row" garante que vai ocuparse a largura da tela-->
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <!-- Sumario para aparecer mensagem de erro no HTML-->
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Seller.Name" class="control-label"></label>
+                <input asp-for="Seller.Name" class="form-control" />
+                <span asp-validation-for="Seller.Name" class="text-danger" ></span><!-- Mensagem de validasão por campo-->
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Seller.Email" class="control-label"></label>
+                <input asp-for="Seller.Email" class="form-control" />
+                <span asp-validation-for="Seller.Email" class="text-danger" ></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Seller.BirthDate" class="control-label">Birth Date</label>
+                <input asp-for="Seller.BirthDate" class="form-control" />
+                <span asp-validation-for="Seller.BirthDate" class="text-danger" ></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Seller.BaseSalary" class="control-label">Base Salary</label>
+                <input asp-for="Seller.BaseSalary" class="form-control" />
+                <span asp-validation-for="Seller.BaseSalary" class="text-danger" ></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Seller.DepartmentId" class="control-label"></label>
+                <!--O asp-items 1º argumento é a fonte de dados da coleção  2º atributo do objeto que vai ser a chave dele 3º qual vai aparecer na caixinha-->
+                <select asp-for="Seller.DepartmentId" asp-items="@(new SelectList(Model.Departments,"Id","Name"))"
+                    class="form-control"></select>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-info">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Validação do lado do cliente do asp-validation-->
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
